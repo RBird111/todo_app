@@ -5,17 +5,21 @@
 $c-main: #2b2d42;
 $c-sec: #8d99ae;
 $c-acc: #ef233c;
-$c-font: #edf2f4;
+$c-font: rgb(237, 242, 244);
+$c-hover: rgb(237 242 244 / 0.3);
 
 // Fonts
 @mixin txt-title {
 	font-family: 'Raleway', sans-serif;
+	font-weight: 200;
 }
 
 @mixin txt-main {
 	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
 }
 
 @mixin txt-alt {
 	font-family: 'Shadows Into Light', cursive;
+	font-weight: 200;
 }
