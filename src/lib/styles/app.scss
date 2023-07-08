@@ -1,6 +1,8 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 html {
-    cursor: default;
+	@include txt-main;
+
+	cursor: default;
 	background-color: $c-main;
 	color: $c-font;
 }
@@ -13,5 +15,5 @@ html {
 a {
 	text-decoration: none;
 	color: inherit;
-    font-weight: bold;
+	font-weight: bold;
 }

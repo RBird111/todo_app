@@ -1,7 +1,21 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700&family=Shadows+Into+Light&display=swap');
 
 // Colors
 $c-main: #2b2d42;
 $c-sec: #8d99ae;
 $c-acc: #ef233c;
 $c-font: #edf2f4;
+
+// Fonts
+@mixin txt-title {
+	font-family: 'Raleway', sans-serif;
+}
+
+@mixin txt-main {
+	font-family: 'Montserrat', sans-serif;
+}
+
+@mixin txt-alt {
+	font-family: 'Shadows Into Light', cursive;
+}
