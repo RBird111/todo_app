@@ -1,1 +1,17 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
+html {
+    cursor: default;
+	background-color: $c-main;
+	color: $c-font;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+    font-weight: bold;
+}
