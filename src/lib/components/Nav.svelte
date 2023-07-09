@@ -38,6 +38,7 @@
 			text-align: center;
 			padding: 0.3rem;
 			font-size: 1.2rem;
+			transition: all 0.5s ease-in-out;
 
 			&:hover {
 				background-color: $c-hover;

@@ -20,11 +20,12 @@
 <div>
 	<h1>Tasks For User {userId}</h1>
 	{#each tasks as task, i (task.id)}
-		<details class="task">
-			<summary style:font-weight="600">Task #{i + 1}</summary>
+		<div class="task">
+			<h2>Task #{i + 1}</h2>
 			<p>{task.title}</p>
 			<p>Created At: {formatDate(task.createdAt)}</p>
-		</details>
+			<p>Due Date: {formatDate(task.dueDate)}</p>
+		</div>
 	{/each}
 </div>
 
@@ -41,7 +42,7 @@
 		padding: 0.6rem;
 	}
 
-	h1 {
-		@include txt-title;
+	h2 {
+		text-decoration: dotted underline;
 	}
 </style>

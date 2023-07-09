@@ -17,3 +17,8 @@ a {
 	color: inherit;
 	font-weight: bold;
 }
+
+h1,
+h2 {
+	@include txt-title;
+}
