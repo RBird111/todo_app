@@ -2,8 +2,8 @@
 	{
 		"firstName": "John",
 		"lastName": "Doe",
-		"email": "johndoe@example.com",
-		"password": "1demouser",
+		"email": "demo@user.com",
+		"password": "demo",
 		"tasks": [
 			{
 				"title": "Fix bug in login functionality",

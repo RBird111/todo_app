@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
+	import { enhance } from '$app/forms';
 
 	export let form: ActionData;
 </script>
@@ -8,32 +8,39 @@
 <div class="wrap">
 	<h1>Welcome to the Log In Page!</h1>
 
-	{#if form?.incorrect}
-		<p style:color="#ef233c">Bad Data</p>
+	{#if form?.success && form.user}
+		<p>Welcome Back {form.user.firstName + ' ' + form.user.lastName[0] + '.'}</p>
+	{:else}
+		<p style:opacity="0">hidden</p>
 	{/if}
-
-	{#if form?.success}
-		<p>Yeah!</p>
-	{/if}
-
-	{#if form?.user}
-		<p>Email: {form.user.email}</p>
-		<p>First Name: {form.user.firstName}</p>
-		<p>Last Name: {form.user.lastName}</p>
-	{/if}
-
 	<form method="POST" use:enhance>
+		{#if form?.email && form.missing}
+			<p class="error">Must Submit Email</p>
+		{:else if form?.email && form.incorrect}
+			<p class="error">Email Does Not Match Existing User</p>
+		{:else}
+			<p style:opacity="0">hidden</p>
+		{/if}
 		<label>
 			Email
 			<input name="email" type="email" />
 		</label>
 
+		{#if form?.password && form.missing}
+			<p class="error">Must Submit Password</p>
+		{:else if form?.password && form.incorrect}
+			<p class="error">Incorrect Password</p>
+		{:else}
+			<p style:opacity="0">hidden</p>
+		{/if}
 		<label>
 			Password
 			<input name="password" type="password" />
 		</label>
 
-		<button>Submit</button>
+		<p style:opacity="0">hidden</p>
+
+		<button>Log In</button>
 	</form>
 </div>
 
@@ -45,6 +52,11 @@
 
 		p {
 			text-align: center;
+			font-weight: 400;
+		}
+
+		p.error {
+			color: $c-acc;
 		}
 	}
 

@@ -9,11 +9,11 @@ export const actions = {
 
 		// Check email exists
 		const email = data.get('email');
-		if (!email) return fail(400, { email, missing: true });
+		if (!email) return fail(400, { email: 1, missing: true });
 
 		// Check password exists
 		const password = data.get('password');
-		if (!password) return fail(400, { password, missing: true });
+		if (!password) return fail(400, { password: 1, missing: true });
 
 		// Check user exists
 		const user = await prisma.user.findFirst({
