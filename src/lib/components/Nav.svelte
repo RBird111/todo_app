@@ -12,14 +12,20 @@
 		);
 	});
 
-	const navElements = ['Home', 'Nav Bar', 'More Nav Stuff', 'Ibid'];
+	const navElements = ['Home', 'Sign Up', 'Log In'];
+	const getHref = (loc: string) => {
+		if (loc === 'Home') {
+			return '/';
+		}
+		return `/${loc.toLowerCase().split(' ').join('')}`;
+	};
 </script>
 
 <nav class="main-nav">
-	{#each navElements as ele}
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-		<p on:click={(e) => console.log('You clicked =>', e.target)}>{ele}</p>
+	{#each navElements as loc}
+		<a href={getHref(loc)}>
+			{loc}
+		</a>
 	{/each}
 </nav>
 
@@ -31,7 +37,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 
-		p {
+		a {
 			cursor: pointer;
 			border: 1px solid $c-sec;
 			min-width: max-content;
