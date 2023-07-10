@@ -30,7 +30,6 @@ export const actions = {
 		if (password !== confirmPassword) return fail(400, { noMatch: true });
 		const hashedPassword = await bcrypt.hash(password.toString(), 10);
 
-		// Check user exists
 		const user = await prisma.user.create({
 			data: {
 				firstName: firstName.toString(),

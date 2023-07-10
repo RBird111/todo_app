@@ -1,38 +1,49 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
 	export let form: ActionData;
+
+	let focusTarget: HTMLElement;
+	onMount(() => {
+		focusTarget.focus();
+	});
 </script>
 
 <div class="wrap">
 	<h1>Welcome to the Log In Page!</h1>
 
 	{#if form?.success && form.user}
-		<p>Welcome Back {form.user.firstName + ' ' + form.user.lastName[0] + '.'}</p>
+		<p>
+			Welcome Back {form.user.firstName + ' ' + form.user.lastName[0] + '.'}
+		</p>
 	{:else}
 		<p style:opacity="0">hidden</p>
 	{/if}
-	<form method="POST" use:enhance>
-		{#if form?.email && form.missing}
+
+	<form method="POST" autocomplete="off" use:enhance>
+		{#if form?.missingEmail}
 			<p class="error">Must Submit Email</p>
-		{:else if form?.email && form.incorrect}
+		{:else if form?.incorrectEmail}
 			<p class="error">Email Does Not Match Existing User</p>
 		{:else}
 			<p style:opacity="0">hidden</p>
 		{/if}
+
 		<label>
 			Email
-			<input name="email" type="email" />
+			<input name="email" type="email" bind:this={focusTarget} />
 		</label>
 
-		{#if form?.password && form.missing}
+		{#if form?.missingPassword}
 			<p class="error">Must Submit Password</p>
-		{:else if form?.password && form.incorrect}
+		{:else if form?.incorrectPassword}
 			<p class="error">Incorrect Password</p>
 		{:else}
 			<p style:opacity="0">hidden</p>
 		{/if}
+
 		<label>
 			Password
 			<input name="password" type="password" />

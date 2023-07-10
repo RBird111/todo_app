@@ -1,8 +1,14 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
 	export let form: ActionData;
+
+	let focusTarget: HTMLElement;
+	onMount(() => {
+		focusTarget.focus();
+	});
 </script>
 
 <div class="wrap">
@@ -12,10 +18,10 @@
 		<p>User #{form.user.id} Created</p>
 	{/if}
 
-	<form method="POST" use:enhance>
+	<form method="POST" autocomplete="off" use:enhance>
 		<label>
 			First Name
-			<input name="firstName" type="text" />
+			<input name="firstName" type="text" bind:this={focusTarget} />
 		</label>
 
 		<label>

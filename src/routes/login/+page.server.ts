@@ -9,11 +9,11 @@ export const actions = {
 
 		// Check email exists
 		const email = data.get('email');
-		if (!email) return fail(400, { email: 1, missing: true });
+		if (!email) return fail(400, { missingEmail: true });
 
 		// Check password exists
 		const password = data.get('password');
-		if (!password) return fail(400, { password: 1, missing: true });
+		if (!password) return fail(400, { missingPassword: true });
 
 		// Check user exists
 		const user = await prisma.user.findFirst({
@@ -22,11 +22,14 @@ export const actions = {
 			}
 		});
 
-		if (!user) return fail(400, { email, incorrect: true });
+		if (!user) return fail(400, { incorrectEmail: true });
 
 		// Check if password is valid
-		const validPassword = await bcrypt.compare(password.toString(), user.hashedPassword);
-		if (!validPassword) return fail(400, { password, incorrect: true });
+		const validPassword = await bcrypt.compare(
+			password.toString(),
+			user.hashedPassword
+		);
+		if (!validPassword) return fail(400, { incorrectPassword: true });
 
 		return { success: true, user: user };
 	}
