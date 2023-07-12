@@ -1,6 +1,8 @@
 import prisma from '$lib/prisma';
 import bcrypt from 'bcryptjs';
+import { Prisma } from '@prisma/client';
 import { fail } from '@sveltejs/kit';
+
 import type { Actions } from './$types';
 
 export const actions = {
@@ -30,15 +32,27 @@ export const actions = {
 		if (password !== confirmPassword) return fail(400, { noMatch: true });
 		const hashedPassword = await bcrypt.hash(password.toString(), 10);
 
-		const user = await prisma.user.create({
-			data: {
-				firstName: firstName.toString(),
-				lastName: lastName.toString(),
-				email: email.toString(),
-				hashedPassword
+		// Catch errors thrown during user creation
+		let user;
+		try {
+			user = await prisma.user.create({
+				data: {
+					firstName: firstName.toString(),
+					lastName: lastName.toString(),
+					email: email.toString(),
+					hashedPassword
+				}
+			});
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				if (e.code === 'P2002') {
+					return fail(400, { emailInUse: true });
+				}
 			}
-		});
+		}
 
-		return { success: true, user: user };
+		if (user) {
+			return { success: true, user };
+		}
 	}
 } satisfies Actions;

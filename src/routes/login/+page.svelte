@@ -19,16 +19,16 @@
 			Welcome Back {form.user.firstName + ' ' + form.user.lastName[0] + '.'}
 		</p>
 	{:else}
-		<p style:opacity="0">hidden</p>
+		<p style:opacity="0">placeholder</p>
 	{/if}
 
 	<form method="POST" autocomplete="off" use:enhance>
 		{#if form?.missingEmail}
 			<p class="error">Must Submit Email</p>
 		{:else if form?.incorrectEmail}
-			<p class="error">Email Does Not Match Existing User</p>
+			<p class="error">Email Does Not Match An Existing User</p>
 		{:else}
-			<p style:opacity="0">hidden</p>
+			<p style:opacity="0">placeholder</p>
 		{/if}
 
 		<label>
@@ -41,7 +41,7 @@
 		{:else if form?.incorrectPassword}
 			<p class="error">Incorrect Password</p>
 		{:else}
-			<p style:opacity="0">hidden</p>
+			<p style:opacity="0">placeholder</p>
 		{/if}
 
 		<label>
@@ -49,7 +49,7 @@
 			<input name="password" type="password" />
 		</label>
 
-		<p style:opacity="0">hidden</p>
+		<p style:opacity="0">placeholder</p>
 
 		<button>Log In</button>
 	</form>
