@@ -24,8 +24,8 @@
 
 	<form method="POST" autocomplete="off" use:enhance>
 		<label>
-			Email
-			<input name="email" type="email" bind:this={focusTarget} />
+			Username
+			<input name="username" type="text" bind:this={focusTarget} />
 		</label>
 
 		<label>

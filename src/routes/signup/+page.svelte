@@ -15,7 +15,7 @@
 	<h1>Welcome to the Sign Up Page!</h1>
 
 	{#if form?.success}
-		<p>User #{form.user.id} Created</p>
+		<p>User #{form.user.userId} Created</p>
 	{/if}
 
 	<form method="POST" autocomplete="off" use:enhance>
