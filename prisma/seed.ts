@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import lucia from 'lucia-auth';
 import prismaAdapter from '@lucia-auth/adapter-prisma';
 import { sveltekit } from 'lucia-auth/middleware';
-// import { generateRandomString } from 'lucia-auth';
 import seeds from './seed_data.json';
 
 const prisma = new PrismaClient();
@@ -23,19 +22,6 @@ const main = async () => {
 	console.log(`Start seeding ...`);
 
 	for (const u of Object.values(seeds)) {
-		// const user = await prisma.authUser.create({
-		// 	data: {
-		// 		id: generateRandomString(15),
-		// 		first_name: u.firstName,
-		// 		last_name: u.lastName,
-		// 		username: u.username,
-		// 		email: u.email,
-		// 		hashed_password: u.password,
-		// 		tasks: {
-		// 			create: u.tasks
-		// 		}
-		// 	}
-		// });
 		const user = await auth.createUser({
 			primaryKey: {
 				providerId: 'email',
