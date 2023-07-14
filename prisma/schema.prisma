@@ -11,17 +11,17 @@ datasource db {
 }
 
 model AuthUser {
-  id              String        @id @unique
-  auth_session    AuthSession[]
-  auth_key        AuthKey[]
-  first_name      String
-  last_name       String
-  username        String        @unique
-  email           String        @unique
-  hashed_password String
-  tasks           Task[]
-  created_at      DateTime      @default(now())
-  updated_at      DateTime      @updatedAt
+  id           String        @id @unique
+  auth_session AuthSession[]
+  auth_key     AuthKey[]
+  first_name   String
+  last_name    String
+  username     String        @unique
+  email        String        @unique
+  password     String
+  tasks        Task[]
+  created_at   DateTime      @default(now())
+  updated_at   DateTime      @updatedAt
 
   @@map("users")
 }

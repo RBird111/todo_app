@@ -14,35 +14,19 @@
 <div class="wrap">
 	<h1>Welcome to the Log In Page!</h1>
 
-	{#if form?.success && form.user}
-		<p>
-			Welcome Back {form.user.firstName + ' ' + form.user.lastName[0] + '.'}
-		</p>
+	{#if form?.success}
+		<p>Welcome Back!</p>
+	{:else if form?.fail}
+		<p>Fail!</p>
 	{:else}
 		<p style:opacity="0">placeholder</p>
 	{/if}
 
 	<form method="POST" autocomplete="off" use:enhance>
-		{#if form?.missingEmail}
-			<p class="error">Must Submit Email</p>
-		{:else if form?.incorrectEmail}
-			<p class="error">Email Does Not Match An Existing User</p>
-		{:else}
-			<p style:opacity="0">placeholder</p>
-		{/if}
-
 		<label>
 			Email
 			<input name="email" type="email" bind:this={focusTarget} />
 		</label>
-
-		{#if form?.missingPassword}
-			<p class="error">Must Submit Password</p>
-		{:else if form?.incorrectPassword}
-			<p class="error">Incorrect Password</p>
-		{:else}
-			<p style:opacity="0">placeholder</p>
-		{/if}
 
 		<label>
 			Password
@@ -64,10 +48,6 @@
 		p {
 			text-align: center;
 			font-weight: 400;
-		}
-
-		p.error {
-			color: $c-acc;
 		}
 	}
 
