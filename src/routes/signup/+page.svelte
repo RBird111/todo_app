@@ -30,6 +30,11 @@
 		</label>
 
 		<label>
+			Username
+			<input name="username" type="text" />
+		</label>
+
+		<label>
 			Email
 			<input name="email" type="email" />
 		</label>

@@ -1,4 +1,4 @@
-import prisma from '$lib/prisma';
+import prisma from '$lib/server/prisma';
 import bcrypt from 'bcryptjs';
 import { Prisma } from '@prisma/client';
 import { fail } from '@sveltejs/kit';
@@ -10,23 +10,27 @@ export const actions = {
 		const data = await request.formData();
 
 		// Check firstName exists
-		const firstName = data.get('firstName');
+		const firstName = data.get('firstName')?.toString();
 		if (!firstName) return fail(400, { missingFirstName: true });
 
 		// Check lastName exists
-		const lastName = data.get('lastName');
+		const lastName = data.get('lastName')?.toString();
 		if (!lastName) return fail(400, { missingLastName: true });
 
+		// Check username exists
+		const username = data.get('username')?.toString();
+		if (!username) return fail(400, { missingUsername: true });
+
 		// Check email exists
-		const email = data.get('email');
+		const email = data.get('email')?.toString();
 		if (!email) return fail(400, { missingEmail: true });
 
 		// Check password exists
-		const password = data.get('password');
+		const password = data.get('password')?.toString();
 		if (!password) return fail(400, { missingPass: true });
 
 		// Check confirmPassword exists
-		const confirmPassword = data.get('confirmPassword');
+		const confirmPassword = data.get('confirmPassword')?.toString();
 		if (!confirmPassword) return fail(400, { missingConfirmPass: true });
 
 		if (password !== confirmPassword) return fail(400, { noMatch: true });
@@ -37,9 +41,10 @@ export const actions = {
 		try {
 			user = await prisma.user.create({
 				data: {
-					firstName: firstName.toString(),
-					lastName: lastName.toString(),
-					email: email.toString(),
+					firstName,
+					lastName,
+					username,
+					email,
 					hashedPassword
 				}
 			});
