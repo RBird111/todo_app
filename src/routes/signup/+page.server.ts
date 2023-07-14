@@ -1,12 +1,15 @@
-import prisma from '$lib/server/prisma';
-import bcrypt from 'bcryptjs';
-import { Prisma } from '@prisma/client';
-import { fail } from '@sveltejs/kit';
+import { auth } from '$lib/server/lucia';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
 
-import type { Actions } from './$types';
+export const load: PageServerLoad = async ({ locals }) => {
+	const { session } = await locals.auth.validateUser();
+	if (session) throw redirect(302, '/');
+	return {};
+};
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const data = await request.formData();
 
 		// Check firstName exists
@@ -34,30 +37,27 @@ export const actions = {
 		if (!confirmPassword) return fail(400, { missingConfirmPass: true });
 
 		if (password !== confirmPassword) return fail(400, { noMatch: true });
-		const hashed_password = await bcrypt.hash(password.toString(), 10);
 
-		// Catch errors thrown during user creation
-		let user;
 		try {
-			user = await prisma.authUser.create({
-				data: {
+			const user = await auth.createUser({
+				primaryKey: {
+					providerId: 'username',
+					providerUserId: username,
+					password
+				},
+				attributes: {
 					first_name,
 					last_name,
-					username,
 					email,
-					hashed_password
+					username
 				}
 			});
-		} catch (e) {
-			if (e instanceof Prisma.PrismaClientKnownRequestError) {
-				if (e.code === 'P2002') {
-					return fail(400, { emailInUse: true });
-				}
-			}
-		}
-
-		if (user) {
+			const session = await auth.createSession(user.userId);
+			locals.auth.setSession(session);
 			return { success: true, user };
+		} catch {
+			// username taken
+			return fail(400);
 		}
 	}
 } satisfies Actions;

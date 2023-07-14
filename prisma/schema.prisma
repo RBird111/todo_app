@@ -18,7 +18,6 @@ model AuthUser {
   last_name    String
   username     String        @unique
   email        String        @unique
-  password     String
   tasks        Task[]
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
