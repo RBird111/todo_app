@@ -10,55 +10,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id             String    @id @unique
-  authSession    Session[]
-  authKey        Key[]
-  firstName      String
-  lastName       String
-  username       String    @unique
-  email          String    @unique
-  hashedPassword String
-  tasks          Task[]
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+model AuthUser {
+  id              String        @id @unique
+  auth_session    AuthSession[]
+  auth_key        AuthKey[]
+  first_name      String
+  last_name       String
+  username        String        @unique
+  email           String        @unique
+  hashed_password String
+  tasks           Task[]
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
 
   @@map("users")
 }
 
-model Session {
-  id            String @id @unique
-  userId        String @map("user_id")
-  activeExpires BigInt
-  idleExpires   BigInt
-  user          User   @relation(references: [id], fields: [userId], onDelete: Cascade)
+model AuthSession {
+  id             String   @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
-  @@index([userId])
+  @@index([user_id])
   @@map("sessions")
 }
 
-model Key {
-  id              String  @id @unique
+model AuthKey {
+  id              String   @id @unique
   hashed_password String?
-  userId          String  @map("userId")
-  primaryKey      Boolean
+  user_id         String
+  primary_key     Boolean
   expires         BigInt?
-  user            User    @relation(references: [id], fields: [userId], onDelete: Cascade)
+  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
-  @@index([userId])
+  @@index([user_id])
   @@map("keys")
 }
 
 model Task {
-  id          String   @id @unique
+  id          Int      @id @unique @default(autoincrement())
   title       String
   description String
   completed   Boolean  @default(false)
-  dueDate     DateTime
-  userId      String
-  user        User     @relation(references: [id], fields: [userId], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  due_date    DateTime
+  user_id     String
+  auth_user   AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
   @@map("tasks")
 }

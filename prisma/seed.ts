@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import seeds from './seed_data.json';
+import { generateRandomString } from 'lucia-auth';
 
 const prisma = new PrismaClient();
 
@@ -8,13 +9,15 @@ const main = async () => {
 	console.log(`Start seeding ...`);
 
 	for (const u of Object.values(seeds)) {
-		const hashedPassword = await bcrypt.hash(u.password, 10);
-		const user = await prisma.user.create({
+		const hashed_password = await bcrypt.hash(u.password, 10);
+		const user = await prisma.authUser.create({
 			data: {
-				firstName: u.firstName,
-				lastName: u.lastName,
+				id: generateRandomString(15),
+				first_name: u.firstName,
+				last_name: u.lastName,
+				username: u.username,
 				email: u.email,
-				hashedPassword,
+				hashed_password,
 				tasks: {
 					create: u.tasks
 				}
