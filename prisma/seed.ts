@@ -1,43 +1,26 @@
-import lucia from 'lucia-auth';
-import prismaAdapter from '@lucia-auth/adapter-prisma';
-import { sveltekit } from 'lucia-auth/middleware';
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 import seeds from './seed_data.json';
 
 const prisma = new PrismaClient();
-const auth = lucia({
-	adapter: prismaAdapter(prisma),
-	env: 'DEV',
-	middleware: sveltekit(),
-	transformDatabaseUser: (user) => ({
-		userId: user.id,
-		first_name: user.first_name,
-		last_name: user.last_name,
-		username: user.username,
-		email: user.email
-	})
-});
 
 const main = async () => {
 	console.log(`Start seeding ...`);
 
 	for (const u of Object.values(seeds)) {
-		const user = await auth.createUser({
-			primaryKey: {
-				providerId: 'username',
-				providerUserId: u.username,
-				password: u.password
-			},
-			attributes: {
-				first_name: u.firstName,
-				last_name: u.lastName,
+		const user = await prisma.user.create({
+			data: {
+				firstName: u.firstName,
+				lastName: u.lastName,
 				username: u.username,
 				email: u.email,
-				tasks: { create: u.tasks }
+				hashedPassword: await bcrypt.hash(u.password, 10),
+				authToken: crypto.randomUUID(),
+				tasks: {
+					create: u.tasks
+				}
 			}
 		});
-		const session = await auth.createSession(user.userId);
-		console.log('Session =>', session);
 		console.log(`Created user with id: ${user.id}`);
 	}
 

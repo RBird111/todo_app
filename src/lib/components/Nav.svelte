@@ -12,7 +12,7 @@
 		);
 	});
 
-	const navElements = ['Home', 'Sign Up', 'Log In'];
+	const navElements = ['Home', 'Protected', 'Sign Up', 'Log In'];
 	const getHref = (loc: string) => {
 		if (loc === 'Home') {
 			return '/';

@@ -10,31 +10,31 @@
 				"title": "Fix bug in login functionality",
 				"description": "There is a bug causing login failures. Investigate and fix it.",
 				"completed": false,
-				"due_date": "2023-10-10T12:00:00Z"
+				"dueDate": "2023-10-10T12:00:00Z"
 			},
 			{
 				"title": "Optimize database queries",
 				"description": "'Identify' slow-performing queries and optimize them for better performance.",
 				"completed": false,
-				"due_date": "2023-10-12T15:30:00Z"
+				"dueDate": "2023-10-12T15:30:00Z"
 			},
 			{
 				"title": "Implement new feature X",
 				"description": "Add a new feature X based on the requirements provided.",
 				"completed": false,
-				"due_date": "2023-10-15T09:00:00Z"
+				"dueDate": "2023-10-15T09:00:00Z"
 			},
 			{
 				"title": "Refactor code for better maintainability",
 				"description": "Review and refactor code to improve readability and maintainability.",
 				"completed": false,
-				"due_date": "2023-10-20T16:45:00Z"
+				"dueDate": "2023-10-20T16:45:00Z"
 			},
 			{
 				"title": "Write unit tests for module Y",
 				"description": "Create comprehensive unit tests to ensure the correctness of module Y.",
 				"completed": false,
-				"due_date": "2023-10-25T14:00:00Z"
+				"dueDate": "2023-10-25T14:00:00Z"
 			}
 		]
 	},
@@ -49,19 +49,19 @@
 				"title": "Design UI mockups for homepage",
 				"description": "Create visually appealing mockups for the homepage redesign.",
 				"completed": false,
-				"due_date": "2023-10-12T10:00:00Z"
+				"dueDate": "2023-10-12T10:00:00Z"
 			},
 			{
 				"title": "Implement user authentication",
 				"description": "Integrate user authentication functionality into the application.",
 				"completed": false,
-				"due_date": "2023-10-18T14:30:00Z"
+				"dueDate": "2023-10-18T14:30:00Z"
 			},
 			{
 				"title": "Write documentation for API endpoints",
 				"description": "Document the usage and behavior of API endpoints for the team.",
 				"completed": false,
-				"due_date": "2023-10-22T11:45:00Z"
+				"dueDate": "2023-10-22T11:45:00Z"
 			}
 		]
 	},
@@ -76,19 +76,19 @@
 				"title": "Fix styling issues on product detail page",
 				"description": "Resolve CSS styling issues affecting the product detail page layout.",
 				"completed": false,
-				"due_date": "2023-10-11T09:30:00Z"
+				"dueDate": "2023-10-11T09:30:00Z"
 			},
 			{
 				"title": "Implement search functionality",
 				"description": "Add search feature to allow users to search for products.",
 				"completed": false,
-				"due_date": "2023-10-16T13:15:00Z"
+				"dueDate": "2023-10-16T13:15:00Z"
 			},
 			{
 				"title": "Refactor backend API endpoints",
 				"description": "Optimize and refactor backend API endpoints for improved performance.",
 				"completed": false,
-				"due_date": "2023-10-20T16:00:00Z"
+				"dueDate": "2023-10-20T16:00:00Z"
 			}
 		]
 	}

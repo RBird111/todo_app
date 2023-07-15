@@ -10,42 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model AuthUser {
-  id           String        @id @unique
-  auth_session AuthSession[]
-  auth_key     AuthKey[]
-  first_name   String
-  last_name    String
-  username     String        @unique
-  email        String        @unique
-  tasks        Task[]
-  created_at   DateTime      @default(now())
-  updated_at   DateTime      @updatedAt
+model User {
+  id             Int      @id @unique @default(autoincrement())
+  firstName      String
+  lastName       String
+  username       String   @unique
+  email          String   @unique
+  hashedPassword String
+  authToken      String   @unique
+  tasks          Task[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@map("users")
-}
-
-model AuthSession {
-  id             String   @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  auth_user      AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("sessions")
-}
-
-model AuthKey {
-  id              String   @id @unique
-  hashed_password String?
-  user_id         String
-  primary_key     Boolean
-  expires         BigInt?
-  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-  @@map("keys")
 }
 
 model Task {
@@ -53,11 +30,11 @@ model Task {
   title       String
   description String
   completed   Boolean  @default(false)
-  due_date    DateTime
-  user_id     String
-  auth_user   AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  dueDate     DateTime
+  userId      Int
+  user        User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("tasks")
 }

@@ -1,9 +1,6 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
-
-	export let form: ActionData;
 
 	let focusTarget: HTMLElement;
 	onMount(() => {
@@ -14,26 +11,16 @@
 <div class="wrap">
 	<h1>Welcome to the Log In Page!</h1>
 
-	{#if form?.success}
-		<p>Welcome Back!</p>
-	{:else if form?.fail}
-		<p>Fail!</p>
-	{:else}
-		<p style:opacity="0">placeholder</p>
-	{/if}
-
-	<form method="POST" autocomplete="off" use:enhance>
+	<form method="post" autocomplete="off" use:enhance>
 		<label>
-			Username
-			<input name="username" type="text" bind:this={focusTarget} />
+			Username or Email
+			<input name="credential" type="text" bind:this={focusTarget} />
 		</label>
 
 		<label>
 			Password
 			<input name="password" type="password" />
 		</label>
-
-		<p style:opacity="0">placeholder</p>
 
 		<button>Log In</button>
 	</form>
@@ -44,11 +31,6 @@
 		padding: 10px;
 		display: flex;
 		flex-flow: column wrap;
-
-		p {
-			text-align: center;
-			font-weight: 400;
-		}
 	}
 
 	form {

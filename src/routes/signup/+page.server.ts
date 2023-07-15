@@ -1,11 +1,12 @@
-import { auth } from '$lib/server/lucia';
+import prisma from '$lib/server/prisma';
+import bcrypt from 'bcryptjs';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const { session } = await locals.auth.validateUser();
-	if (session) throw redirect(302, '/');
-	return {};
+	if (locals.user) {
+		throw redirect(302, '/');
+	}
 };
 
 export const actions = {
@@ -13,12 +14,12 @@ export const actions = {
 		const data = await request.formData();
 
 		// Check firstName exists
-		const first_name = data.get('firstName')?.toString();
-		if (!first_name) return fail(400, { missingFirstName: true });
+		const firstName = data.get('firstName')?.toString();
+		if (!firstName) return fail(400, { missingFirstName: true });
 
 		// Check lastName exists
-		const last_name = data.get('lastName')?.toString();
-		if (!last_name) return fail(400, { missingLastName: true });
+		const lastName = data.get('lastName')?.toString();
+		if (!lastName) return fail(400, { missingLastName: true });
 
 		// Check username exists
 		const username = data.get('username')?.toString();
@@ -39,25 +40,24 @@ export const actions = {
 		if (password !== confirmPassword) return fail(400, { noMatch: true });
 
 		try {
-			const user = await auth.createUser({
-				primaryKey: {
-					providerId: 'username',
-					providerUserId: username,
-					password
-				},
-				attributes: {
-					first_name,
-					last_name,
+			const user = await prisma.user.create({
+				data: {
+					firstName,
+					lastName,
+					username,
 					email,
-					username
-				}
+					hashedPassword: await bcrypt.hash(password, 10),
+					authToken: crypto.randomUUID()
+				},
+				include: { tasks: true }
 			});
-			const session = await auth.createSession(user.userId);
-			locals.auth.setSession(session);
-			return { success: true, user };
+
+			locals.user = { ...user };
+
+			throw redirect(302, '/');
 		} catch {
-			// username taken
-			return fail(400);
+			// username/email taken
+			return fail(400, { nonUnique: true });
 		}
 	}
 } satisfies Actions;
