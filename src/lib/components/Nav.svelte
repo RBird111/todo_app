@@ -33,9 +33,15 @@
 	nav {
 		@include txt-title;
 
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 100%;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
+		background-color: transparent;
 
 		a {
 			cursor: pointer;
@@ -45,6 +51,7 @@
 			padding: 0.3rem;
 			font-size: 1.2rem;
 			transition: all 0.5s ease-in-out;
+			background-color: $c-overlay;
 
 			&:hover {
 				background-color: $c-hover;
