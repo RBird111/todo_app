@@ -21,6 +21,7 @@ const main = async () => {
 				}
 			}
 		});
+
 		console.log(`Created user with id: ${user.id}`);
 	}
 

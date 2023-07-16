@@ -30,7 +30,7 @@
 		width: 100%;
 		height: 100vh;
 		z-index: -10;
-		filter: blur(0.15rem);
+		filter: blur(0.2rem);
 
 		&:before,
 		&:after {

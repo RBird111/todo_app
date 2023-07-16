@@ -19,19 +19,17 @@ $d-content: 			0.325s;
 @mixin txt-title {
 	font-family: 		'Raleway', sans-serif;
 	font-weight: 		200;
-	letter-spacing: 	0.2rem;
+	letter-spacing: 	0.1rem;
 }
 
 @mixin txt-main {
 	font-family: 		'Montserrat', sans-serif;
 	font-weight: 		200;
-	letter-spacing: 	0.1rem;
 }
 
 @mixin txt-alt {
 	font-family: 		'Shadows Into Light', cursive;
 	font-weight: 		200;
-	letter-spacing: 	0.1rem;
 }
 
 // Size
