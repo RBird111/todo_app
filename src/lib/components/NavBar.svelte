@@ -1,25 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import Logo from './Logo.svelte';
 
 	$: user = $page.data.user;
 
-	onMount(() => {
-		const nav = document.getElementsByClassName('main-nav')[0];
-		const maxWidth = Object.values(nav.children).reduce((acc, n) => {
-			const width = (n as HTMLElement).offsetWidth;
-			return width > acc ? width : acc;
-		}, 0);
-		Object.values(nav.children).forEach(
-			(ele) => ((ele as HTMLElement).style.width = `${maxWidth + 20}px`)
-		);
-	});
-
-	const navElements = ['Home', 'Protected', 'Sign Up', 'Log In'];
+	const navElements = ['Protected', 'Sign Up', 'Log In'];
 	const getHref = (loc: string) => {
-		if (loc === 'Home') {
-			return '/';
-		}
 		return `/${loc.toLowerCase().split(' ').join('')}`;
 	};
 
@@ -32,35 +18,50 @@
 </script>
 
 <nav class="main-nav">
-	{#each navElements as loc}
-		<a href={getHref(loc)} hidden={isHidden(loc)}>
-			{loc}
-		</a>
-	{/each}
+	<Logo />
+	<div class="btns">
+		{#each navElements as loc}
+			<a href={getHref(loc)} hidden={isHidden(loc)}>
+				{loc}
+			</a>
+		{/each}
+	</div>
 </nav>
 
 <style lang="scss">
-	nav {
-		@include txt-title;
-
-		position: relative;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
+	nav,
+	div.btns {
 		max-width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+	}
 
+	nav {
+		@include txt-title;
+
+		background-color: $c-overlay;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		padding: 10px 0;
+		transform: translateX(-50%);
+		border-bottom: 1px solid $c-sec;
+	}
+
+	div.btns {
 		a {
 			cursor: pointer;
 			border: 1px solid $c-sec;
-			min-width: max-content;
+			border-radius: 0;
 			text-align: center;
 			padding: 0.3rem;
 			font-size: 1.2rem;
 			transition: all 0.5s ease-in-out;
 			background-color: $c-overlay;
+			margin-right: 10px;
 
 			&:hover {
 				background-color: $c-hover;

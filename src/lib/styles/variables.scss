@@ -1,5 +1,5 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700&family=Raleway:wght@100;200;300;400;500;600;700&family=Shadows+Into+Light&display=swap');
 
 // Colors
 $c-main: 				#2b2d42;
@@ -25,6 +25,11 @@ $d-content: 			0.325s;
 @mixin txt-main {
 	font-family: 		'Montserrat', sans-serif;
 	font-weight: 		200;
+}
+
+@mixin txt-code {
+	font-family: 		'JetBrains Mono', monospace;
+	font-weight:		200;
 }
 
 @mixin txt-alt {

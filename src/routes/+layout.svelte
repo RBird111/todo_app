@@ -1,11 +1,11 @@
 <script lang="ts">
+	import NavBar from '$lib/components/NavBar.svelte';
 	import '$lib/styles/app.scss';
-	import Nav from '$lib/components/Nav.svelte';
 </script>
 
+<NavBar />
 <div class="app-wrap">
 	<slot />
-	<Nav />
 </div>
 
 <div class="background" />
@@ -22,7 +22,7 @@
 	}
 
 	.background {
-		transform: scale(1.0);
+		transform: scale(1);
 		position: fixed;
 		top: 0;
 		left: 0;
