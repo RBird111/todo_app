@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+
+	$: user = $page.data.user;
 
 	onMount(() => {
 		const nav = document.getElementsByClassName('main-nav')[0];
@@ -19,11 +22,18 @@
 		}
 		return `/${loc.toLowerCase().split(' ').join('')}`;
 	};
+
+	$: isHidden = (loc: string) => {
+		if (loc === 'Protected' && (!user || !Object.values(user).length))
+			return true;
+		if ((loc === 'Sign Up' || loc === 'Log In') && user) return true;
+		return false;
+	};
 </script>
 
 <nav class="main-nav">
 	{#each navElements as loc}
-		<a href={getHref(loc)}>
+		<a href={getHref(loc)} hidden={isHidden(loc)}>
 			{loc}
 		</a>
 	{/each}
@@ -33,15 +43,14 @@
 	nav {
 		@include txt-title;
 
-		position: absolute;
-		top: 0;
+		position: relative;
+		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
 		max-width: 100%;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		background-color: transparent;
 
 		a {
 			cursor: pointer;

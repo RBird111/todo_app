@@ -3,10 +3,9 @@
 	import Nav from '$lib/components/Nav.svelte';
 </script>
 
-<Nav />
-
 <div class="app-wrap">
 	<slot />
+	<Nav />
 </div>
 
 <div class="background" />

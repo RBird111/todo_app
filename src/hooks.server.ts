@@ -19,7 +19,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// if `user` exists set `events.local`
 	if (user)
 		event.locals.user = {
-			...user
+			id: user.id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			username: user.username,
+			email: user.email,
+			tasks: user.tasks,
+			updatedAt: user.updatedAt,
+			createdAt: user.createdAt
 		};
 
 	// load page as normal

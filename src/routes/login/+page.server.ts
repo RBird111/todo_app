@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions = {
-	default: async ({ request, cookies, locals }) => {
+	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 
 		// Check credential exists
@@ -55,8 +55,6 @@ export const actions = {
 			// set cookie to expire after a day
 			maxAge: 60 * 60 * 24
 		});
-
-		locals.user = { ...authenticatedUser };
 
 		throw redirect(302, '/');
 	}

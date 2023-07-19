@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 
-	$: user = $page.data.user;
+	let user = $page.data.user;
 </script>
 
 <div class="wrap">
