@@ -18,7 +18,8 @@
 </script>
 
 <nav class="main-nav">
-	<Logo />
+	<Logo --margin="0 0 0 10px" />
+
 	<div class="btns">
 		{#each navElements as loc}
 			<a href={getHref(loc)} hidden={isHidden(loc)}>
@@ -39,7 +40,7 @@
 	nav {
 		@include txt-title;
 
-		background-color: $c-overlay;
+		background-color: rgba(19, 21, 25, 0.7);
 		width: 100%;
 		justify-content: space-between;
 		align-items: center;

@@ -3,8 +3,8 @@
 		<span class="paren">(</span>u<span class="paren">)</span>
 		<span class="do">do</span>
 		<span class="arrow">-></span> U
-	</div></a
->
+	</div>
+</a>
 
 <style lang="scss">
 	a {
@@ -14,7 +14,7 @@
 	div.logo {
 		@include txt-code;
 
-		margin-left: 10px;
+		margin: var(--margin, 0);
 		background-color: transparent;
 		font-size: var(--font-size, 1.5rem);
 	}

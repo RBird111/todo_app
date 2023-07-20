@@ -16,9 +16,6 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		border: 1px solid $c-sec;
-		border-radius: 3px;
-		padding: 0.6rem;
 	}
 
 	.background {
