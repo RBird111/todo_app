@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
+	import type { ActionData } from './$types';
 
-	let focusTarget: HTMLElement;
+	export let form: ActionData;
+
+	let focusTarget: HTMLInputElement;
 	onMount(() => {
-		focusTarget.focus();
+		if (focusTarget) focusTarget.focus();
 	});
 </script>
 
@@ -13,12 +16,27 @@
 
 	<form method="post" autocomplete="off" use:enhance>
 		<label>
-			Username or Email
+			<div class="l-wrap">
+				Username or Email
+				{#if form?.missingCredential}
+					<p class="error">Must provide Username or Email</p>
+				{:else if form?.invalidCredentials}
+					<p class="error">Email/Username does not exist</p>
+				{/if}
+			</div>
+
 			<input name="credential" type="text" bind:this={focusTarget} />
 		</label>
 
 		<label>
-			Password
+			<div class="l-wrap">
+				Password
+				{#if form?.missingPassword}
+					<p class="error">Must provide a Password</p>
+				{:else if form?.invalidPassword}
+					<p class="error">Incorrect Password</p>
+				{/if}
+			</div>
 			<input name="password" type="password" />
 		</label>
 
@@ -33,6 +51,10 @@
 		flex-flow: column wrap;
 	}
 
+	h1 {
+		margin-bottom: 15px;
+	}
+
 	form {
 		display: flex;
 		flex-flow: column wrap;
@@ -40,7 +62,18 @@
 		label {
 			display: flex;
 			flex-flow: column wrap;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
+		}
+
+		.l-wrap {
+			display: flex;
+			justify-content: space-between;
+
+			.error {
+				color: $c-acc;
+				font-weight: 600;
+				text-align: center;
+			}
 		}
 
 		input {
@@ -63,6 +96,7 @@
 			background-color: $c-acc;
 			color: $c-font;
 			padding: 5px 0;
+			margin-top: 20px;
 
 			&:hover {
 				box-shadow: 0 0 5px $c-sec;

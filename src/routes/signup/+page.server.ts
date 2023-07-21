@@ -12,7 +12,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
-		console.log('Data =>', data);
 
 		// Check firstName exists
 		const firstName = data.get('firstName')?.toString();

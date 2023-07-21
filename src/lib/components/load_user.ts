@@ -11,10 +11,10 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 const formatDate = (date: Date) => {
-  let dStr = new Date(date).toISOString();
+  const dStr = new Date(date).toISOString();
 
   // [[%Y], [%M], [%D]]
-  let dArr: string[] = dStr.split("T")[0].split("-");
+  const dArr: string[] = dStr.split("T")[0].split("-");
 
   // "%M/%D/%Y"
   return [dArr[1], dArr[2], dArr[0]].join("/");
