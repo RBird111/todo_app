@@ -3,10 +3,14 @@
 
 	export let label: string;
 	export let name: string;
-	export let type = 'text';
+	export let type: string = 'text';
 	export let autofocus: boolean = false;
 
 	export let errors: Errors = null;
+
+	const setType = (node: HTMLInputElement) => {
+		node.type = type;
+	};
 
 	type Errors =
 		| {
@@ -27,7 +31,7 @@
 		{/if}
 	</div>
 	<!-- svelte-ignore a11y-autofocus -->
-	<input {type} {name} {autofocus} />
+	<input use:setType {name} {autofocus} />
 </label>
 
 <style lang="scss">

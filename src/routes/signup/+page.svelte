@@ -62,6 +62,7 @@
 		<Input
 			label="Password"
 			name="password"
+			type="password"
 			errors={toErrorObj(
 				form?.password,
 				[form?.missing, 'must provide a password'],
