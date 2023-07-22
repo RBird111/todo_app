@@ -1,12 +1,19 @@
 <script lang="ts">
-	import NavBar from '$lib/components/NavBar.svelte';
 	import '$lib/styles/app.scss';
+	import NavBar from '$lib/components/NavBar.svelte';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+
+	let visible = false;
+	onMount(() => (visible = true));
 </script>
 
 <NavBar />
-<div class="app-wrap">
-	<slot />
-</div>
+{#if visible}
+	<div class="app-wrap" transition:fade={{ delay: 500, duration: 1500 }}>
+		<slot />
+	</div>
+{/if}
 
 <div class="background" />
 
@@ -27,6 +34,7 @@
 		height: 100vh;
 		z-index: -10;
 		filter: blur(0.2rem);
+		transition: all 1s ease-in-out;
 
 		&:before,
 		&:after {

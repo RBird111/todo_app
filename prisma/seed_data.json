@@ -4,7 +4,7 @@
 		"lastName": "Doe",
 		"username": "demolition",
 		"email": "demo@user.com",
-		"password": "demo",
+		"password": "dem0",
 		"tasks": [
 			{
 				"title": "Fix bug in login functionality",
@@ -43,7 +43,7 @@
 		"lastName": "Smith",
 		"username": "jsmith12",
 		"email": "janesmith@example.com",
-		"password": "jsmith10",
+		"password": "jsmith",
 		"tasks": [
 			{
 				"title": "Design UI mockups for homepage",
@@ -70,7 +70,7 @@
 		"lastName": "Johnson",
 		"username": "magic-mike",
 		"email": "michaeljohnson@example.com",
-		"password": "mj0hns0n12",
+		"password": "mjohn12",
 		"tasks": [
 			{
 				"title": "Fix styling issues on product detail page",

@@ -3,29 +3,18 @@
 	import Logo from './Logo.svelte';
 
 	$: user = $page.data.user;
-
-	const navElements = ['Protected', 'Sign Up', 'Log In'];
-	const getHref = (loc: string) => {
-		return `/${loc.toLowerCase().split(' ').join('')}`;
-	};
-
-	$: isHidden = (loc: string) => {
-		if (loc === 'Protected' && (!user || !Object.values(user).length))
-			return true;
-		if ((loc === 'Sign Up' || loc === 'Log In') && user) return true;
-		return false;
-	};
 </script>
 
 <nav class="main-nav">
 	<Logo --margin="0 0 0 10px" />
 
 	<div class="btns">
-		{#each navElements as loc}
-			<a href={getHref(loc)} hidden={isHidden(loc)}>
-				{loc}
-			</a>
-		{/each}
+		{#if user}
+			<a href="/protected">Tasks</a>
+		{:else}
+			<a href="/signup">Sign Up</a>
+			<a href="/login">Log In</a>
+		{/if}
 	</div>
 </nav>
 
