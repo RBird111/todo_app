@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
 	import { toErrorObj } from '$lib/utils';
 	import Input from '$lib/components/Input.svelte';
 
