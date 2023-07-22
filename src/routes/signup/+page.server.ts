@@ -2,6 +2,7 @@ import prisma from '$lib/server/prisma';
 import bcrypt from 'bcryptjs';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { Prisma } from '@prisma/client';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.user) {
@@ -72,9 +73,14 @@ export const actions = {
 				maxAge: 60 * 60 * 24
 			});
 		} catch (e) {
-			console.log('ERROR =>', e);
 			// username/email taken
-			return fail(400, { username: true, email: true, nonUnique: true });
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				if ((e.meta?.target as string[]).includes('username')) {
+					return fail(400, { username: true, nonUnique: true });
+				} else if ((e.meta?.target as string[]).includes('email')) {
+					return fail(400, { email: true, nonUnique: true });
+				}
+			}
 		}
 
 		throw redirect(302, '/');

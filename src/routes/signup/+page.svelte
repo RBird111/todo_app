@@ -36,7 +36,7 @@
 			errors={toErrorObj(
 				form?.username,
 				[form?.missing, 'must provide username'],
-				[form?.nonUnique, 'username/email already taken']
+				[form?.nonUnique, 'username already taken']
 			)}
 		/>
 
@@ -46,7 +46,7 @@
 			errors={toErrorObj(
 				form?.email,
 				[form?.missing, 'must provide an email'],
-				[form?.nonUnique, 'username/email already taken']
+				[form?.nonUnique, 'email already taken']
 			)}
 		/>
 
