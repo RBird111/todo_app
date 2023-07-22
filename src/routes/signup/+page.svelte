@@ -1,19 +1,10 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
+	import { toErrorObj } from '$lib/utils';
 	import Input from '$lib/components/Input.svelte';
 
 	export let form: ActionData;
-
-	const toErrorObj = (
-		name: boolean | '' | undefined,
-		...args: [boolean | '' | undefined, string][]
-	) =>
-		args.map(([isError, message]) => ({
-			name,
-			isError,
-			message
-		}));
 </script>
 
 <div class="wrap">
@@ -56,17 +47,6 @@
 				form?.email,
 				[form?.missing, 'must provide an email'],
 				[form?.nonUnique, 'username/email already taken']
-			)}
-		/>
-
-		<Input
-			label="Password"
-			name="password"
-			type="password"
-			errors={toErrorObj(
-				form?.password,
-				[form?.missing, 'must provide a password'],
-				[form?.noMatch, 'passwords must match']
 			)}
 		/>
 

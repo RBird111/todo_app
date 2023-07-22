@@ -16,7 +16,7 @@ export const actions = {
 
 		// Check credential exists
 		const credential = data.get('credential')?.toString();
-		if (!credential) return fail(400, { missingCredential: true });
+		if (!credential) return fail(400, { credential: true, missing: true });
 
 		// So the linter doesn't freak out about wrong type
 		const getProp = () => {
@@ -33,15 +33,15 @@ export const actions = {
 			where: { ...getProp() }
 		});
 
-		if (!user) return fail(400, { invalidCredentials: true });
+		if (!user) return fail(400, { credential: true, invalid: true });
 
 		// Check password exists
 		const password = data.get('password')?.toString();
-		if (!password) return fail(400, { missingPassword: true });
+		if (!password) return fail(400, { password: true, missing: true });
 
 		// Check if password is valid
 		const userPassword = await bcrypt.compare(password, user.hashedPassword);
-		if (!userPassword) return fail(400, { invalidPassword: true });
+		if (!userPassword) return fail(400, { password: true, invalid: true });
 
 		// Generate new auth token
 		const authenticatedUser = await prisma.user.update({
