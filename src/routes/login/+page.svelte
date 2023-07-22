@@ -19,12 +19,11 @@
 			<div class="l-wrap">
 				Username or Email
 				{#if form?.missingCredential}
-					<p class="error">Must provide Username or Email</p>
+					<p class="error">must provide username or email</p>
 				{:else if form?.invalidCredentials}
-					<p class="error">Email/Username does not exist</p>
+					<p class="error">email/username does not exist</p>
 				{/if}
 			</div>
-
 			<input name="credential" type="text" bind:this={focusTarget} />
 		</label>
 
@@ -32,9 +31,9 @@
 			<div class="l-wrap">
 				Password
 				{#if form?.missingPassword}
-					<p class="error">Must provide a Password</p>
+					<p class="error">must provide a password</p>
 				{:else if form?.invalidPassword}
-					<p class="error">Incorrect Password</p>
+					<p class="error">incorrect password</p>
 				{/if}
 			</div>
 			<input name="password" type="password" />

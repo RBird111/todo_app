@@ -1,46 +1,95 @@
 <script lang="ts">
+	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
+	import Input from '$lib/components/Input.svelte';
 
-	let focusTarget: HTMLElement;
-	onMount(() => {
-		focusTarget.focus();
-	});
+	export let form: ActionData;
+
+	const toErrorObj = (
+		name: boolean | '' | undefined,
+		...args: [boolean | '' | undefined, string][]
+	) =>
+		args.map(([isError, message]) => ({
+			name,
+			isError,
+			message
+		}));
 </script>
 
 <div class="wrap">
 	<h1>Welcome to the Sign Up Page!</h1>
 
 	<form method="post" autocomplete="off" use:enhance>
-		<label>
-			First Name
-			<input name="firstName" type="text" bind:this={focusTarget} />
-		</label>
+		<Input
+			label="First Name"
+			name="firstName"
+			autofocus={true}
+			errors={toErrorObj(form?.firstName, [
+				form?.missing,
+				'must provide first name'
+			])}
+		/>
 
-		<label>
-			Last Name
-			<input name="lastName" type="text" />
-		</label>
+		<Input
+			label="Last Name"
+			name="lastName"
+			errors={toErrorObj(form?.lastName, [
+				form?.missing,
+				'must provide last name'
+			])}
+		/>
 
-		<label>
-			Username
-			<input name="username" type="text" />
-		</label>
+		<Input
+			label="Username"
+			name="username"
+			errors={toErrorObj(
+				form?.username,
+				[form?.missing, 'must provide username'],
+				[form?.nonUnique, 'username/email already taken']
+			)}
+		/>
 
-		<label>
-			Email
-			<input name="email" type="email" />
-		</label>
+		<Input
+			label="Email"
+			name="email"
+			errors={toErrorObj(
+				form?.email,
+				[form?.missing, 'must provide an email'],
+				[form?.nonUnique, 'username/email already taken']
+			)}
+		/>
 
-		<label>
-			Password
-			<input name="password" type="password" />
-		</label>
+		<Input
+			label="Password"
+			name="password"
+			errors={toErrorObj(
+				form?.password,
+				[form?.missing, 'must provide a password'],
+				[form?.noMatch, 'passwords must match']
+			)}
+		/>
 
-		<label>
-			Confirm Password
-			<input name="confirmPassword" type="password" />
-		</label>
+		<Input
+			label="Password"
+			name="password"
+			type="password"
+			errors={toErrorObj(
+				form?.password,
+				[form?.missing, 'must provide a password'],
+				[form?.noMatch, 'passwords must match']
+			)}
+		/>
+
+		<Input
+			label="Confirm Password"
+			name="confirmPassword"
+			type="password"
+			errors={toErrorObj(
+				form?.confirmPassword,
+				[form?.missing, 'must confirm password'],
+				[form?.noMatch, 'passwords must match']
+			)}
+		/>
 
 		<button>Sign Up</button>
 	</form>
@@ -56,20 +105,6 @@
 	form {
 		display: flex;
 		flex-flow: column wrap;
-
-		label {
-			display: flex;
-			flex-flow: column wrap;
-			margin-bottom: 20px;
-		}
-
-		input {
-			outline: none;
-			border: none;
-			background-color: $c-sec;
-			color: $c-font;
-			padding: 5px;
-		}
 
 		button {
 			@include txt-title;

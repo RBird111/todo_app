@@ -15,29 +15,35 @@ export const actions = {
 
 		// Check firstName exists
 		const firstName = data.get('firstName')?.toString();
-		if (!firstName) return fail(400, { missingFirstName: true });
+		if (!firstName) return fail(400, { firstName: true, missing: true });
 
 		// Check lastName exists
 		const lastName = data.get('lastName')?.toString();
-		if (!lastName) return fail(400, { missingLastName: true });
+		if (!lastName) return fail(400, { lastName: true, missing: true });
 
 		// Check username exists
 		const username = data.get('username')?.toString();
-		if (!username) return fail(400, { missingUsername: true });
+		if (!username) return fail(400, { username: true, missing: true });
 
 		// Check email exists
 		const email = data.get('email')?.toString();
-		if (!email) return fail(400, { missingEmail: true });
+		if (!email) return fail(400, { email: true, missing: true });
 
 		// Check password exists
 		const password = data.get('password')?.toString();
-		if (!password) return fail(400, { missingPass: true });
+		if (!password) return fail(400, { password: true, missing: true });
 
 		// Check confirmPassword exists
 		const confirmPassword = data.get('confirmPassword')?.toString();
-		if (!confirmPassword) return fail(400, { missingConfirmPass: true });
+		if (!confirmPassword)
+			return fail(400, { confirmPassword: true, missing: true });
 
-		if (password !== confirmPassword) return fail(400, { noMatch: true });
+		if (password !== confirmPassword)
+			return fail(400, {
+				password: true,
+				confirmPassword: true,
+				noMatch: true
+			});
 
 		try {
 			const user = await prisma.user.create({
@@ -68,7 +74,7 @@ export const actions = {
 		} catch (e) {
 			console.log('ERROR =>', e);
 			// username/email taken
-			return fail(400, { nonUnique: true });
+			return fail(400, { username: true, email: true, nonUnique: true });
 		}
 
 		throw redirect(302, '/');
