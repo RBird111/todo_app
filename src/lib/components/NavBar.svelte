@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
 	import Logo from './Logo.svelte';
 
 	$: user = $page.data.user;
@@ -11,6 +12,9 @@
 	<div class="btns">
 		{#if user}
 			<a href="/protected">Tasks</a>
+			<form method="post" action="/" use:enhance>
+				<button>Log Out</button>
+			</form>
 		{:else}
 			<a href="/signup">Sign Up</a>
 			<a href="/login">Log In</a>
@@ -30,19 +34,22 @@
 		@include txt-title;
 
 		background-color: rgba(19, 21, 25, 0.7);
-		width: 100%;
+		width: 100vw;
 		justify-content: space-between;
 		align-items: center;
 		position: absolute;
 		top: 0;
 		left: 50%;
-		padding: 10px 0;
 		transform: translateX(-50%);
+		padding: 10px 0;
 		border-bottom: 1px solid $c-sec;
 	}
 
 	div.btns {
-		a {
+		a,
+		button {
+			@include txt-title;
+
 			cursor: pointer;
 			border: 1px solid $c-sec;
 			border-radius: 0;

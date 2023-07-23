@@ -3,14 +3,14 @@ html {
 	@include txt-main;
 
 	cursor: default;
-	background-color: transparent;
+	background-color: $c-main;
 	color: $c-font;
 }
 
 * {
 	margin: 0;
 	padding: 0;
-	background-color: inherit;
+	background-color: transparent;
 	color: inherit;
 }
 

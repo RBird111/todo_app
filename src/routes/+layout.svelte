@@ -2,7 +2,6 @@
 	import '$lib/styles/app.scss';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
 
 	let visible = false;
 	onMount(() => (visible = true));
@@ -10,7 +9,7 @@
 
 <NavBar />
 {#if visible}
-	<div class="app-wrap" transition:fade={{ delay: 500, duration: 1500 }}>
+	<div class="app-wrap">
 		<slot />
 	</div>
 {/if}
@@ -30,7 +29,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 100%;
+		width: 100vw;
 		height: 100vh;
 		z-index: -10;
 		filter: blur(0.2rem);

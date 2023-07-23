@@ -1,4 +1,8 @@
-<a href="/">
+<script lang="ts">
+	export let active = true;
+</script>
+
+<a href={active ? '/' : '#'} style:cursor={active ? 'pointer' : 'default'}>
 	<div class="logo">
 		<span class="paren">(</span>u<span class="paren">)</span>
 		<span class="do">do</span>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Error from './Error.svelte';
 
 	export let label: string;
@@ -7,6 +8,13 @@
 	export let autofocus: boolean = false;
 
 	export let errors: Errors = null;
+
+	let ref: HTMLElement;
+	onMount(() => {
+		if (autofocus) {
+			ref.focus();
+		}
+	});
 
 	const setType = (node: HTMLInputElement) => {
 		node.type = type;
@@ -30,8 +38,7 @@
 			{/each}
 		{/if}
 	</div>
-	<!-- svelte-ignore a11y-autofocus -->
-	<input use:setType {name} {autofocus} />
+	<input use:setType {name} bind:this={ref} />
 </label>
 
 <style lang="scss">
