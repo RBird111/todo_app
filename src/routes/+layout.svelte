@@ -1,18 +1,12 @@
 <script lang="ts">
 	import '$lib/styles/app.scss';
 	import NavBar from '$lib/components/NavBar.svelte';
-	import { onMount } from 'svelte';
-
-	let visible = false;
-	onMount(() => (visible = true));
 </script>
 
 <NavBar />
-{#if visible}
-	<div class="app-wrap">
-		<slot />
-	</div>
-{/if}
+<div class="app-wrap">
+	<slot />
+</div>
 
 <div class="background" />
 

@@ -12,7 +12,6 @@
 
 	<form method="post" autocomplete="off" use:enhance>
 		<Input
-			label="First Name"
 			name="firstName"
 			autofocus={true}
 			errors={toErrorObj(form?.firstName, [
@@ -22,7 +21,6 @@
 		/>
 
 		<Input
-			label="Last Name"
 			name="lastName"
 			errors={toErrorObj(form?.lastName, [
 				form?.missing,
@@ -31,7 +29,6 @@
 		/>
 
 		<Input
-			label="Username"
 			name="username"
 			errors={toErrorObj(
 				form?.username,
@@ -41,7 +38,6 @@
 		/>
 
 		<Input
-			label="Email"
 			name="email"
 			errors={toErrorObj(
 				form?.email,
@@ -51,7 +47,6 @@
 		/>
 
 		<Input
-			label="Password"
 			name="password"
 			type="password"
 			errors={toErrorObj(
@@ -62,7 +57,6 @@
 		/>
 
 		<Input
-			label="Confirm Password"
 			name="confirmPassword"
 			type="password"
 			errors={toErrorObj(
@@ -81,6 +75,11 @@
 		padding: 10px;
 		display: flex;
 		flex-flow: column wrap;
+	}
+
+	h1 {
+		text-align: center;
+		margin-bottom: 15px;
 	}
 
 	form {

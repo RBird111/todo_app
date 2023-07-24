@@ -2,18 +2,36 @@
 	import { onMount } from 'svelte';
 	import Error from './Error.svelte';
 
-	export let label: string;
 	export let name: string;
+	export let label: string = makeLabel();
 	export let type: string = 'text';
 	export let autofocus: boolean = false;
 
 	export let errors: Errors = null;
 
+	function makeLabel() {
+		const myMatch = name.match(/[A-Z]/);
+		if (myMatch?.index) {
+			const firstHalf = name
+				.slice(0, myMatch.index)
+				.split('')
+				.map((c, i) => (!i ? c.toUpperCase() : c))
+				.join('');
+
+			const lastHalf = name.slice(myMatch.index);
+
+			return firstHalf + ' ' + lastHalf;
+		}
+
+		return name
+			.split('')
+			.map((c, i) => (!i ? c.toUpperCase() : c))
+			.join('');
+	}
+
 	let ref: HTMLElement;
 	onMount(() => {
-		if (autofocus) {
-			ref.focus();
-		}
+		if (autofocus) ref.focus();
 	});
 
 	const setType = (node: HTMLInputElement) => {
@@ -50,6 +68,7 @@
 		.wrap {
 			display: flex;
 			justify-content: space-between;
+			min-width: 25vw;
 		}
 	}
 

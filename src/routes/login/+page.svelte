@@ -23,7 +23,6 @@
 		/>
 
 		<Input
-			label="Password"
 			name="password"
 			type="password"
 			errors={toErrorObj(
@@ -45,6 +44,7 @@
 	}
 
 	h1 {
+        text-align: center;
 		margin-bottom: 15px;
 	}
 
