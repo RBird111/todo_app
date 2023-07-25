@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
+	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import { toErrorObj } from '$lib/utils';
 	import Input from '$lib/components/Input.svelte';
+
+	export let form: ActionData;
 
 	let user = $page.data.user;
 </script>
@@ -11,9 +15,24 @@
 
 	<form method="post" use:enhance>
 		<input type="text" name="userId" bind:value={user.id} hidden />
-		<Input name="title" />
-		<Input name="description" />
-		<Input name="dueDate" />
+
+		<Input
+			name="title"
+			errors={toErrorObj(form?.title, [form?.missing, 'must provide a title'])}
+		/>
+
+		<Input
+			name="description"
+			errors={toErrorObj(form?.description, [
+				form?.missing,
+				'must provide a task description'
+			])}
+		/>
+
+		<Input
+			name="dueDate"
+			errors={toErrorObj(form?.dueDate, [form?.missing, 'must set a due date'])}
+		/>
 
 		<button>Add Task</button>
 	</form>
@@ -27,7 +46,7 @@
 	}
 
 	h1 {
-        text-align: center;
+		text-align: center;
 		margin-bottom: 15px;
 	}
 

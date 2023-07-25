@@ -85,7 +85,7 @@
 			justify-content: center;
 			align-items: center;
 
-			font-size: 3.2rem;
+			font-size: 2.5rem;
 			letter-spacing: normal;
 			padding: 0.4rem;
 			border-radius: 100%;
