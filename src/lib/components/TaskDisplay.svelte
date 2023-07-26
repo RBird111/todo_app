@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
+	import { enhance } from '$app/forms';
 
 	type Task = {
 		id: number;
@@ -12,32 +13,41 @@
 	export let task: Task;
 
 	let { id, title, description, completed, dueDate } = task;
+
+	let form: HTMLFormElement;
+
+	const onClick = () => form.dispatchEvent(new SubmitEvent('submit'));
 </script>
 
 {#if task}
-	<div class="wrap">
-		<div class="task">
-			<h2 class="title">{title}</h2>
-			<div class="top">
-				<div class="att">
-					<p class="label">Id:&nbsp</p>
-					<p>{id}</p>
+	<form method="post" action="/protected" use:enhance bind:this={form}>
+		<input type="text" name="id" value={id} hidden />
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
+		<div class="wrap" on:click={onClick}>
+			<div class="task">
+				<h2 class="title">{title}</h2>
+				<div class="top">
+					<div class="att">
+						<p class="label">Id:&nbsp</p>
+						<p>{id}</p>
+					</div>
+
+					<div class="att">
+						<p class="label">Completed:&nbsp</p>
+						<p>{completed}</p>
+					</div>
+
+					<div class="att">
+						<p class="label">Due Date:&nbsp</p>
+						<p>{formatDate(dueDate)}</p>
+					</div>
 				</div>
 
-				<div class="att">
-					<p class="label">Completed:&nbsp</p>
-					<p>{completed}</p>
-				</div>
-
-				<div class="att">
-					<p class="label">Due Date:&nbsp</p>
-					<p>{formatDate(dueDate)}</p>
-				</div>
+				<p class="description">{description}</p>
 			</div>
-
-			<p class="description">{description}</p>
 		</div>
-	</div>
+	</form>
 {/if}
 
 <style lang="scss">

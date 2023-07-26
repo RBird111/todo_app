@@ -1,3 +1,4 @@
+import prisma from '$lib/server/prisma';
 import type { PageServerLoad, Actions } from './$types';
 import { redirect } from '@sveltejs/kit';
 
@@ -6,13 +7,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions = {
-	default: async ({ cookies }) => {
-		// eat the cookie
-		cookies.set('session', '', {
-			path: '/',
-			expires: new Date(0)
-		});
+	default: async ({ request }) => {
+		const data = await request.formData();
+		const id = Number(data.get('id')?.toString());
 
-		throw redirect(302, '/login');
+		await prisma.task.delete({
+			where: { id }
+		});
 	}
 } satisfies Actions;

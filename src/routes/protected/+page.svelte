@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import TaskDisplay from '$lib/components/TaskDisplay.svelte';
 
-	let user = $page.data.user;
+	$: user = $page.data.user;
 </script>
 
 <div class="wrap">
@@ -12,7 +11,7 @@
 	<p style:margin-bottom="0.5rem">Username: {user.username}</p>
 	<div class="tasks">
 		{#if user.tasks}
-			{#each user.tasks as task}
+			{#each user.tasks as task (task.id)}
 				<TaskDisplay {task} />
 			{/each}
 		{/if}
@@ -33,7 +32,7 @@
 
 	.tasks {
 		overflow-y: scroll;
-		max-height: 60vh;
+		height: 60vh;
 		border: 1px solid $c-font;
 	}
 </style>

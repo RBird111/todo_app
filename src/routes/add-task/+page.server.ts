@@ -27,7 +27,7 @@ export const actions = {
 			return new Date(Number(y), Number(m), Number(d));
 		};
 
-		const task = await prisma.task.create({
+		await prisma.task.create({
 			data: {
 				userId,
 				title,
@@ -35,8 +35,6 @@ export const actions = {
 				dueDate: parsedDate(dueDate)
 			}
 		});
-
-		console.log('Task =>', task);
 
 		throw redirect(302, '/protected');
 	}
