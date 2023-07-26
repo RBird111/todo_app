@@ -23,7 +23,7 @@ export const actions = {
 		if (!dueDate) return fail(400, { dueDate: true, missing: true });
 
 		const parsedDate = (date: string) => {
-			const [m, d, y] = date.split('/');
+			const [y, m, d] = date.split('-');
 			return new Date(Number(y), Number(m), Number(d));
 		};
 

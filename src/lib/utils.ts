@@ -1,4 +1,4 @@
-export const formatDate = (date: Date) => {
+export const formatDate = (date: string) => {
 	const dStr = new Date(date).toISOString();
 
 	// [[%Y], [%M], [%D]]

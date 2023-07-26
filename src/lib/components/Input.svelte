@@ -5,6 +5,7 @@
 	export let name: string;
 	export let label: string = makeLabel();
 	export let type: string = 'text';
+	export let placeholder: string = '';
 	export let autofocus: boolean = false;
 
 	export let errors: Errors = null;
@@ -56,7 +57,7 @@
 			{/each}
 		{/if}
 	</div>
-	<input use:setType {name} bind:this={ref} />
+	<input use:setType {name} bind:this={ref} {placeholder} />
 </label>
 
 <style lang="scss">
@@ -78,5 +79,9 @@
 		background-color: $c-sec;
 		color: $c-font;
 		padding: 5px;
+
+		&::placeholder {
+			color: $c-main;
+		}
 	}
 </style>

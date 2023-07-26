@@ -1,25 +1,22 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import TaskDisplay from '$lib/components/TaskDisplay.svelte';
 
 	let user = $page.data.user;
 </script>
 
 <div class="wrap">
 	<h1>Profile</h1>
-	<div>
-		<p>User id: {user.id}</p>
-		<p>Username: {user.username}</p>
+	<p>User id: {user.id}</p>
+	<p style:margin-bottom="0.5rem">Username: {user.username}</p>
+	<div class="tasks">
 		{#if user.tasks}
 			{#each user.tasks as task}
-				<p>{task.title}</p>
+				<TaskDisplay {task} />
 			{/each}
 		{/if}
 	</div>
-
-	<form use:enhance method="post">
-		<button>Sign Out</button>
-	</form>
 </div>
 
 <style lang="scss">
@@ -34,26 +31,9 @@
 		}
 	}
 
-	form {
-		display: flex;
-		flex-flow: column wrap;
-
-		button {
-			@include txt-title;
-
-			cursor: pointer;
-			font-size: 1rem;
-			font-weight: 400;
-			border: none;
-			border-radius: 3px;
-			outline: 1px solid $c-font;
-			background-color: $c-acc;
-			color: $c-font;
-			padding: 5px 0;
-
-			&:hover {
-				box-shadow: 0 0 5px $c-sec;
-			}
-		}
+	.tasks {
+		overflow-y: scroll;
+		max-height: 60vh;
+		border: 1px solid $c-font;
 	}
 </style>
