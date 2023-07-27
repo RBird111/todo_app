@@ -19,6 +19,7 @@
 
 		<Input
 			name="title"
+			autofocus={true}
 			errors={toErrorObj(form?.title, [form?.missing, 'must provide a title'])}
 		/>
 

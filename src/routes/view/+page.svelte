@@ -49,11 +49,11 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-      min-height: unset;
+			min-height: unset;
 
 			& > * {
 				font-weight: 200;
-        font-size: 1.6rem;
+				font-size: 1.6rem;
 			}
 
 			a {
