@@ -1,43 +1,44 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
 	import { toErrorObj } from '$lib/utils';
 	import Input from '$lib/components/Input.svelte';
 	import TextArea from '$lib/components/TextArea.svelte';
 
+	export let data: PageData;
 	export let form: ActionData;
-
-	let user = $page.data.user;
 </script>
 
 <div class="wrap">
-	<h1>Add a New Task</h1>
+	<h1>Update Task</h1>
 
 	<form method="post" use:enhance>
-		<input type="text" name="userId" bind:value={user.id} hidden />
+		<input type="text" name="id" bind:value={data.task.id} hidden />
 
 		<Input
 			name="title"
+			value={data.task.title}
 			errors={toErrorObj(form?.title, [form?.missing, 'must provide a title'])}
 		/>
 
 		<Input
 			name="dueDate"
 			placeholder="MM/DD/YYYY"
+			value={data.task.dueDate.toISOString().split('T')[0]}
 			type="date"
 			errors={toErrorObj(form?.dueDate, [form?.missing, 'must set a due date'])}
 		/>
 
 		<TextArea
 			name="description"
+			value={data.task.description}
 			errors={toErrorObj(form?.description, [
 				form?.missing,
 				'must provide a task description'
 			])}
 		/>
 
-		<button>Add Task</button>
+		<button>Update Task</button>
 	</form>
 </div>
 

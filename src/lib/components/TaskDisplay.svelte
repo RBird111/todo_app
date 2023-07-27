@@ -20,7 +20,7 @@
 </script>
 
 {#if task}
-	<form method="post" action="/protected" use:enhance bind:this={form}>
+	<form method="post" action="/view" use:enhance bind:this={form}>
 		<input type="text" name="id" value={id} hidden />
 		<div class="wrap">
 			<div class="ud">
@@ -28,10 +28,7 @@
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 				<p class="delete" on:click={deleteTask}>Delete</p>
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<!-- svelte-ignore a11y-no-static-element-interactions -->
-				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-				<p class="update">Update</p>
+				<a href={`/update-task/${id}`} class="update">Update</a>
 			</div>
 
 			<div class="task">
@@ -92,7 +89,7 @@
 			width: 100%;
 			height: 100%;
 			opacity: 0;
-			transition: opacity 0.6s ease-in-out;
+			transition: opacity 0.6s ease-in;
 
 			& > * {
 				@include txt-title;

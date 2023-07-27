@@ -44,7 +44,7 @@
 			transition: background-color $d-bg ease-in-out;
 			transition-delay: $d-intro;
 			background-image: linear-gradient(to top, $c-overlay, $c-overlay),
-				url('overlay.png');
+				url('$lib/assets/images/overlay.png');
 			background-size: auto, 256px 256px;
 			background-position: center, center;
 			background-repeat: no-repeat, repeat;
@@ -55,7 +55,7 @@
 			transform: scale(1.125);
 			transition: transform $d-content ease-in-out,
 				filter $d-content ease-in-out;
-			background-image: url('bg.jpg');
+			background-image: url('$lib/assets/images/bg.jpg');
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;

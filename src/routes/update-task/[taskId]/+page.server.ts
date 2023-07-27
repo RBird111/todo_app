@@ -2,16 +2,23 @@ import prisma from '$lib/server/prisma';
 import type { PageServerLoad, Actions } from './$types';
 import { redirect, fail } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, params }) => {
 	if (!locals.user) throw redirect(302, '/login');
+
+	const id = Number(params.taskId);
+
+	const task = await prisma.task.findUnique({ where: { id } });
+
+	if (task && task.userId === locals.user.id) return { task };
+
+	throw redirect(302, '/view');
 };
 
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 
-		const userId = Number(data.get('userId'));
-		if (!userId) return fail(400, { userId: true, missing: true });
+		const id = Number(data.get('id'));
 
 		const title = data.get('title')?.toString();
 		if (!title) return fail(400, { title: true, missing: true });
@@ -27,9 +34,9 @@ export const actions = {
 			return new Date(Number(y), Number(m), Number(d));
 		};
 
-		await prisma.task.create({
+		await prisma.task.update({
+			where: { id },
 			data: {
-				userId,
 				title,
 				description,
 				dueDate: parsedDate(dueDate)

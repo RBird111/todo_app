@@ -5,7 +5,6 @@
 	export let name: string;
 	export let label: string = makeLabel();
 	export let value: string = '';
-	export let type: string = 'text';
 	export let placeholder: string = '';
 	export let autofocus: boolean = false;
 
@@ -36,10 +35,6 @@
 		if (autofocus) ref.focus();
 	});
 
-	const setType = (node: HTMLInputElement) => {
-		node.type = type;
-	};
-
 	type Errors =
 		| {
 				name: boolean | '' | undefined;
@@ -58,7 +53,7 @@
 			{/each}
 		{/if}
 	</div>
-	<input use:setType {name} {value} bind:this={ref} {placeholder} />
+	<textarea {name} {value} bind:this={ref} {placeholder} />
 </label>
 
 <style lang="scss">
@@ -74,12 +69,14 @@
 		}
 	}
 
-	input {
+	textarea {
+        resize: none;
 		outline: none;
 		border: none;
 		background-color: $c-sec;
 		color: $c-font;
 		padding: 5px;
+        height: 10rem;
 
 		&::placeholder {
 			color: $c-main;

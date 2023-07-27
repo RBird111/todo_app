@@ -38,8 +38,9 @@
 	}
 
 	.tasks {
-		overflow-y: scroll;
+		overflow-y: auto;
 		min-height: 60vh;
+		max-height: 60vh;
 		border: 1px solid $c-font;
 
 		&:has(> a) {
@@ -47,8 +48,8 @@
 			border: none;
 			display: flex;
 			flex-direction: column;
-			//justify-content: center;
 			align-items: center;
+      min-height: unset;
 
 			& > * {
 				font-weight: 200;
