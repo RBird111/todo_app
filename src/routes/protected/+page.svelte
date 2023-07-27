@@ -11,9 +11,14 @@
 	<p style:margin-bottom="0.5rem">Username: {user.username}</p>
 	<div class="tasks">
 		{#if user.tasks}
-			{#each user.tasks as task (task.id)}
-				<TaskDisplay {task} />
-			{/each}
+			{#if Object.values(user.tasks).length}
+				{#each user.tasks as task (task.id)}
+					<TaskDisplay {task} />
+				{/each}
+			{:else}
+				<p>You don't have any tasks.</p>
+				<a href="/add-task">Lets create some!</a>
+			{/if}
 		{/if}
 	</div>
 </div>
@@ -23,6 +28,8 @@
 		padding: 10px;
 		display: flex;
 		flex-flow: column wrap;
+		justify-content: center;
+		align-items: center;
 
 		p {
 			text-align: center;
@@ -32,7 +39,25 @@
 
 	.tasks {
 		overflow-y: scroll;
-		height: 60vh;
+		min-height: 60vh;
 		border: 1px solid $c-font;
+
+		&:has(> a) {
+			overflow: hidden;
+			border: none;
+			display: flex;
+			flex-direction: column;
+			//justify-content: center;
+			align-items: center;
+
+			& > * {
+				font-weight: 200;
+        font-size: 1.6rem;
+			}
+
+			a {
+				text-decoration: underline dotted;
+			}
+		}
 	}
 </style>

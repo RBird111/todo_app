@@ -16,15 +16,24 @@
 
 	let form: HTMLFormElement;
 
-	const onClick = () => form.dispatchEvent(new SubmitEvent('submit'));
+	const deleteTask = () => form.dispatchEvent(new SubmitEvent('submit'));
 </script>
 
 {#if task}
 	<form method="post" action="/protected" use:enhance bind:this={form}>
 		<input type="text" name="id" value={id} hidden />
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div class="wrap" on:click={onClick}>
+		<div class="wrap">
+			<div class="ud">
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+				<p class="delete" on:click={deleteTask}>Delete</p>
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+				<p class="update">Update</p>
+			</div>
+
 			<div class="task">
 				<h2 class="title">{title}</h2>
 				<div class="top">
@@ -52,7 +61,6 @@
 
 <style lang="scss">
 	.wrap {
-		cursor: pointer;
 		position: relative;
 		border: 1px solid $c-sec;
 		margin: 0.5rem;
@@ -67,15 +75,14 @@
 
 		&,
 		& > .task {
-			transition: all 1s ease-in-out;
+			transition: all 0.6s ease-in-out;
 		}
 
-		&::before {
-			content: 'X';
+		.ud {
 			display: flex;
-			justify-content: center;
+			justify-content: space-around;
 			align-items: center;
-			color: $c-acc;
+			color: $c-font;
 			background-color: rgba($color: #000000, $alpha: 0.6);
 			font-weight: 600;
 			font-size: 2rem;
@@ -85,18 +92,40 @@
 			width: 100%;
 			height: 100%;
 			opacity: 0;
-			transition: opacity 1s ease-in-out;
+			transition: opacity 0.6s ease-in-out;
+
+			& > * {
+				@include txt-title;
+
+				cursor: pointer;
+				position: relative;
+				z-index: 10;
+				transition: all 0.3s ease-in-out;
+				padding: 0.8rem 1.6rem;
+			}
 		}
 
 		&:hover {
-			& > * {
+			& > :not(.ud) {
 				transform: scale(1.2);
 				filter: blur(0.3rem);
 				opacity: 0;
 			}
 
-			&::before {
+			& > .ud {
 				opacity: 1;
+
+				& > *:hover {
+					transform: scale(1.2);
+				}
+
+				.delete:hover {
+					color: $c-acc;
+				}
+
+				.update:hover {
+					color: #16db65;
+				}
 			}
 		}
 
