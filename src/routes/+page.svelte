@@ -1,8 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Logo from '$lib/components/Logo.svelte';
+	import { onMount } from 'svelte';
 
 	$: user = $page.data.user;
+
+	onMount(() => {
+		setTimeout(async () => {
+			if (user) await goto('/view-tasks');
+		}, 1000);
+	});
 </script>
 
 <div class="wrap">
