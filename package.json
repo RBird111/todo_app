@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "vite dev",
 		"dev": "vite dev",
-		"build": "npx prisma generate && npx prisma db seed && vite build",
+		"build": "npx prisma generate && npx prisma migrate reset -f && npx prisma db seed && vite build",
 		"prepare": "svelte-kit sync",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
