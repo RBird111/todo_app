@@ -1,34 +1,28 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Logo from '$lib/components/Logo.svelte';
-	import { onMount } from 'svelte';
 
 	$: user = $page.data.user;
-
-	onMount(() => {
-		setTimeout(async () => {
-			if (user) await goto('/view-tasks');
-		}, 1000);
-	});
 </script>
 
 <div class="wrap">
-	{#if user}
-		<h1>Welcome back {user.firstName}!</h1>
-	{:else}
+	{#if !user}
 		<h1>Welcome to</h1>
-		<Logo --font-size="1.8rem" --margin="0 0 1.5rem 0" active={false} />
-		<i class="fa-solid fa-terminal" />
-		<p class="body">
-			The
-			<span class="kinda-true">
-				world's first<span class="disclaimer">*my first*</span>
-			</span>
-			note taking app for programmers
-			<br /> that helps you do you!
-		</p>
+	{:else}
+		<h1>Hey {user.firstName}, welcome back to</h1>
 	{/if}
+	<Logo --font-size="1.8rem" --margin="0 0 1.5rem 0" active={false} />
+	<a href="/view-tasks">
+		<i class="fa-solid fa-terminal" />
+	</a>
+	<p class="body">
+		The
+		<span class="kinda-true">
+			world's first<span class="disclaimer">*my first*</span>
+		</span>
+		note taking app for programmers
+		<br /> that helps you do you!
+	</p>
 </div>
 
 <style lang="scss">
@@ -58,6 +52,8 @@
 		margin-bottom: 1.5rem;
 		border-radius: 100%;
 		border: 1px solid $c-sec;
+
+		transition: all 0.5s ease-in-out;
 	}
 
 	.body {
@@ -90,5 +86,11 @@
 		outline: 1px solid $c-sec;
 		font-size: 1rem;
 		font-weight: 400;
+	}
+
+	a:hover {
+		& > * {
+			background-color: $c-hover;
+		}
 	}
 </style>

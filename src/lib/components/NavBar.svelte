@@ -26,9 +26,14 @@
 			>
 			<a class="link" href="/view-tasks">Tasks</a>
 			<form method="post" action="/" use:enhance>
-				<button>Log Out</button>
+				<button class="log-out">Log Out</button>
 			</form>
 		{:else}
+			<form method="post" action="/login" use:enhance>
+				<input type="text" name="credential" value="demolition" hidden />
+				<input type="text" name="password" value="dem0" hidden />
+				<button class="demo">Log in as Demo User</button>
+			</form>
 			<a class="link" href="/signup">Sign Up</a>
 			<a class="link" href="/login">Log In</a>
 		{/if}
@@ -63,7 +68,7 @@
 	div.btns {
 		i,
 		.link,
-		button {
+		button.log-out {
 			@include txt-title;
 
 			cursor: pointer;
@@ -98,6 +103,20 @@
 			margin-right: 0.3rem;
 			opacity: 0;
 			transition: opacity 0.6s ease-in-out;
+		}
+	}
+
+	button.demo {
+		@include txt-title;
+
+		cursor: pointer;
+		outline: none;
+		border: none;
+		margin-right: 1rem;
+		font-size: 0.9rem;
+
+		&:hover {
+			text-decoration: underline solid 1px;
 		}
 	}
 </style>
