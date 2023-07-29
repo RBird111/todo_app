@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/styles/app.scss';
 	import NavBar from '$lib/components/NavBar.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <NavBar />
@@ -9,6 +10,8 @@
 </div>
 
 <div class="background" />
+
+<Footer />
 
 <style lang="scss">
 	.app-wrap {
