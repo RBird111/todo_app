@@ -36,6 +36,6 @@ export const actions = {
 			}
 		});
 
-		throw redirect(302, '/view');
+		throw redirect(302, '/view-tasks');
 	}
 } satisfies Actions;

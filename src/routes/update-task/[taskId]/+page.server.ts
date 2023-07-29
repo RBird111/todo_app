@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	if (task && task.userId === locals.user.id) return { task };
 
-	throw redirect(302, '/view');
+	throw redirect(302, '/view-tasks');
 };
 
 export const actions = {
@@ -43,6 +43,6 @@ export const actions = {
 			}
 		});
 
-		throw redirect(302, '/view');
+		throw redirect(302, '/view-tasks');
 	}
 } satisfies Actions;

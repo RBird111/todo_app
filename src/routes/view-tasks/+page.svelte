@@ -12,7 +12,7 @@
 	<div class="tasks">
 		{#if user.tasks}
 			{#if Object.values(user.tasks).length}
-				{#each user.tasks as task (task.id)}
+				{#each user.tasks as task}
 					<TaskDisplay {task} />
 				{/each}
 			{:else}

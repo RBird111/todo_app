@@ -24,7 +24,7 @@
 					on:mouseleave={mouseLeave}
 				/></a
 			>
-			<a class="link" href="/view">Tasks</a>
+			<a class="link" href="/view-tasks">Tasks</a>
 			<form method="post" action="/" use:enhance>
 				<button>Log Out</button>
 			</form>

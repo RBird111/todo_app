@@ -20,7 +20,7 @@
 </script>
 
 {#if task}
-	<form method="post" action="/view" use:enhance bind:this={form}>
+	<form method="post" action="/view-tasks?/delete" use:enhance bind:this={form}>
 		<input type="text" name="id" value={id} hidden />
 		<div class="wrap">
 			<div class="ud">
@@ -28,6 +28,14 @@
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 				<p class="delete" on:click={deleteTask}>Delete</p>
+				<input type="text" name="id" value={id} hidden />
+				<button
+					class="complete"
+					formaction="/view-tasks?/complete"
+					on:click={() => (completed = !completed)}
+				>
+					Completed?
+				</button>
 				<a href={`/update-task/${id}`} class="update">Update</a>
 			</div>
 
@@ -98,7 +106,13 @@
 				position: relative;
 				z-index: 10;
 				transition: all 0.3s ease-in-out;
+				font-size: 2.1rem;
 				padding: 0.8rem 1.6rem;
+			}
+
+			button {
+				outline: none;
+				border: none;
 			}
 		}
 
@@ -120,8 +134,12 @@
 					color: $c-acc;
 				}
 
-				.update:hover {
+				.complete:hover {
 					color: #16db65;
+				}
+
+				.update:hover {
+					color: #1f80ee;
 				}
 			}
 		}
