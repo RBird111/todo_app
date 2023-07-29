@@ -1,27 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  id             Int      @id @unique @default(autoincrement())
+  email          String   @unique
+  username       String   @unique
+  createdAt      DateTime @default(now())
   firstName      String
   lastName       String
-  username       String   @unique
-  email          String   @unique
+  updatedAt      DateTime @updatedAt
+  id             Int      @id @unique @default(autoincrement())
   hashedPassword String
   authToken      String   @unique
   tasks          Task[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
 
   @@map("users")
 }
@@ -31,11 +29,11 @@ model Task {
   title       String
   description String
   completed   Boolean  @default(false)
-  dueDate     DateTime
-  userId      Int
-  user        User     @relation(references: [id], fields: [userId], onDelete: Cascade)
   createdAt   DateTime @default(now())
+  dueDate     DateTime
   updatedAt   DateTime @updatedAt
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("tasks")
 }
